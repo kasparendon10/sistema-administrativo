@@ -88,20 +88,22 @@
   try {
     await fetch("https://script.google.com/macros/s/AKfycbx1eDQuLvtuQWM2D4Q0PG0ivyITUIZEC72S1SI5Rp6ZgI8AD_s8V7BktyuK0QMZhSNo/exec", {
       method: "POST",
-      mode: "no-cors",
+      mode: "no-cors", // Obligatorio para evitar el error CORS
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(data)
     });
 
-    mensaje.textContent = "✅ Actualización enviada (verifica en la hoja)";
+    // No puedes saber si fue exitoso, así que asumes que sí:
+    mensaje.textContent = "✅ Enviado. Revisa Google Sheets para confirmar.";
     form.reset();
   } catch (error) {
     console.error("Error:", error);
-    mensaje.textContent = "❌ Error de conexión";
+    mensaje.textContent = "❌ Error de conexión. Intenta más tarde.";
   }
 });
+
 
   </script>
 </body>
