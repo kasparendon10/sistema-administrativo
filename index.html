@@ -73,38 +73,36 @@
     const mensaje = document.getElementById('mensaje');
 
     form.addEventListener('submit', async function(e) {
-      e.preventDefault();
+  e.preventDefault();
 
-      const data = {
-        tipo: 'actualizacion_precios',
-        codigo: document.getElementById('codigo').value,
-        nombre: document.getElementById('nombre').value,
-        precioPunto: document.getElementById('precioPunto').value,
-        precioRestaurante: document.getElementById('precioRestaurante').value,
-        precioCaja: document.getElementById('precioCaja').value,
-        observacion: document.getElementById('observacion').value
-      };
+  const data = {
+    tipo: 'actualizacion_precios',
+    codigo: document.getElementById('codigo').value,
+    nombre: document.getElementById('nombre').value,
+    precioPunto: document.getElementById('precioPunto').value,
+    precioRestaurante: document.getElementById('precioRestaurante').value,
+    precioCaja: document.getElementById('precioCaja').value,
+    observacion: document.getElementById('observacion').value
+  };
 
-      try {
-        const response = await fetch("https://script.google.com/macros/s/AKfycbx1eDQuLvtuQWM2D4Q0PG0ivyITUIZEC72S1SI5Rp6ZgI8AD_s8V7BktyuK0QMZhSNo/exec", {
-          method: "POST",
-          body: JSON.stringify(data),
-          headers: {
-            "Content-Type": "application/json"
-          }
-        });
-
-        if (response.ok) {
-          mensaje.textContent = "✅ Actualización registrada";
-          form.reset();
-        } else {
-          mensaje.textContent = "❌ Error al guardar";
-        }
-      } catch (error) {
-        console.error("Error:", error);
-        mensaje.textContent = "❌ Error de conexión";
-      }
+  try {
+    await fetch("https://script.google.com/macros/s/AKfycbx1eDQuLvtuQWM2D4Q0PG0ivyITUIZEC72S1SI5Rp6ZgI8AD_s8V7BktyuK0QMZhSNo/exec", {
+      method: "POST",
+      mode: "no-cors",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
     });
+
+    mensaje.textContent = "✅ Actualización enviada (verifica en la hoja)";
+    form.reset();
+  } catch (error) {
+    console.error("Error:", error);
+    mensaje.textContent = "❌ Error de conexión";
+  }
+});
+
   </script>
 </body>
 </html>
